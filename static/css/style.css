@@ -1,0 +1,1781 @@
+/* =========================================================
+   AI DSA MENTOR - GLOBAL UI
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0B1020;
+    color: #F8FAFC;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    background: rgba(11, 16, 32, 0.92) !important;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+    backdrop-filter: blur(12px);
+}
+
+.navbar-brand {
+    color: #F8FAFC !important;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.brand-ai {
+    color: #8B5CF6;
+}
+
+.nav-link {
+    color: #94A3B8 !important;
+    transition: 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #A78BFA !important;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero-section {
+    min-height: 85vh;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 15% 30%,
+            rgba(139, 92, 246, 0.18),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(34, 211, 238, 0.12),
+            transparent 30%
+        ),
+        #0B1020;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    border-radius: 50px;
+    background: rgba(139, 92, 246, 0.08);
+    color: #A78BFA;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.hero-title {
+    font-size: clamp(42px, 7vw, 76px);
+    font-weight: 800;
+    line-height: 1.05;
+}
+
+.gradient-text {
+    background: linear-gradient(
+        90deg,
+        #8B5CF6,
+        #3B82F6,
+        #22D3EE
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-description {
+    color: #94A3B8;
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 650px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn-ai {
+    border: none;
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #8B5CF6,
+        #3B82F6
+    );
+
+    box-shadow:
+        0 8px 25px rgba(139, 92, 246, 0.25);
+
+    transition: 0.3s ease;
+}
+
+.btn-ai:hover {
+    color: #FFFFFF;
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(139, 92, 246, 0.4);
+}
+
+.btn-outline-ai {
+    border: 1px solid rgba(139, 92, 246, 0.5);
+    color: #A78BFA;
+    background: rgba(139, 92, 246, 0.05);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.btn-outline-ai:hover {
+    background: rgba(139, 92, 246, 0.12);
+    color: #C4B5FD;
+    border-color: #8B5CF6;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section-title {
+    font-size: 36px;
+    font-weight: 750;
+}
+
+.section-subtitle {
+    color: #94A3B8;
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   DASHBOARD CARDS
+========================================================= */
+
+.dashboard-card {
+    height: 100%;
+    padding: 25px;
+
+    background: rgba(17, 24, 45, 0.85);
+
+    border: 1px solid rgba(139, 92, 246, 0.16);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.25);
+
+    transition: 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(139, 92, 246, 0.4);
+
+    box-shadow:
+        0 15px 40px rgba(139, 92, 246, 0.12);
+}
+
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+
+    background: rgba(139, 92, 246, 0.12);
+    color: #A78BFA;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.stat-label {
+    color: #94A3B8;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   AI MENTOR
+========================================================= */
+
+.ai-mentor-card {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(139, 92, 246, 0.16),
+            transparent 35%
+        ),
+        #11182D;
+
+    border: 1px solid rgba(139, 92, 246, 0.3);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 15px 50px rgba(139, 92, 246, 0.08);
+}
+
+.ai-icon {
+    width: 55px;
+    height: 55px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    color: #FFFFFF;
+
+    background: linear-gradient(
+        135deg,
+        #8B5CF6,
+        #EC4899
+    );
+
+    box-shadow:
+        0 8px 25px rgba(139, 92, 246, 0.3);
+}
+
+.ai-title {
+    font-size: 25px;
+    font-weight: 750;
+}
+
+.ai-description {
+    color: #94A3B8;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress {
+    height: 8px;
+    background-color: #1E293B;
+    border-radius: 20px;
+}
+
+.progress-bar-purple {
+    background: linear-gradient(
+        90deg,
+        #8B5CF6,
+        #A78BFA
+    );
+}
+
+.progress-bar-blue {
+    background: linear-gradient(
+        90deg,
+        #3B82F6,
+        #22D3EE
+    );
+}
+
+.progress-bar-pink {
+    background: linear-gradient(
+        90deg,
+        #EC4899,
+        #F472B6
+    );
+}
+
+
+/* =========================================================
+   PROBLEM CARDS
+========================================================= */
+
+.problem-card {
+    background: #11182D;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    transition: 0.3s ease;
+}
+
+.problem-card:hover {
+    border-color: rgba(139, 92, 246, 0.35);
+    transform: translateY(-3px);
+}
+
+.problem-title {
+    color: #F8FAFC;
+    font-weight: 650;
+}
+
+.problem-topic {
+    color: #94A3B8;
+    font-size: 14px;
+}
+
+.difficulty-easy {
+    color: #10B981;
+}
+
+.difficulty-medium {
+    color: #F59E0B;
+}
+
+.difficulty-hard {
+    color: #EF4444;
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+.chat-messages {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.chat-user,
+.chat-ai {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 14px;
+}
+
+.chat-user {
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.chat-ai {
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.chat-ai strong {
+    color: #A78BFA;
+}
+
+.chat-user strong {
+    color: #67E8F9;
+}
+
+.chat-input {
+    background: #0B1020 !important;
+    color: #F8FAFC !important;
+
+    border: 1px solid rgba(139, 92, 246, 0.2) !important;
+
+    border-radius: 12px;
+}
+
+.chat-input::placeholder {
+    color: #64748B;
+}
+
+
+/* =========================================================
+   CODE AREA
+========================================================= */
+
+.code-editor {
+    background: #080D19 !important;
+    color: #E2E8F0 !important;
+
+    border: 1px solid rgba(139, 92, 246, 0.2) !important;
+
+    border-radius: 14px;
+
+    font-family: Consolas, Monaco, monospace;
+    line-height: 1.6;
+}
+
+.code-editor:focus {
+    border-color: #8B5CF6 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.12) !important;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    background: #080D19;
+    border-top: 1px solid rgba(139, 92, 246, 0.12);
+    color: #64748B;
+}
+
+
+/* =========================================================
+   PROBLEM SEARCH
+========================================================= */
+
+#problemSearch {
+    color: #F8FAFC;
+}
+
+#problemSearch::placeholder {
+    color: #64748B;
+}
+
+#problemSearch:focus {
+    background-color: rgba(17, 24, 45, 0.8) !important;
+    border-color: #8B5CF6 !important;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12) !important;
+}
+
+.input-group-text {
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.filter-button {
+    min-width: 90px;
+}
+
+.problem-item {
+    transition: 0.3s ease;
+}
+
+.problem-item.d-none {
+    display: none !important;
+}
+
+
+/* =========================================================
+   PROBLEM WORKSPACE
+========================================================= */
+
+.problem-page-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: #F8FAFC;
+}
+
+
+/* =========================================================
+   WORKSPACE CARD
+========================================================= */
+
+.workspace-card {
+    background: #11182D;
+    border: 1px solid rgba(139, 92, 246, 0.16);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.workspace-header {
+    padding: 18px 22px;
+    background: rgba(139, 92, 246, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 650;
+}
+
+.workspace-header i {
+    color: #A78BFA;
+}
+
+.workspace-body {
+    padding: 24px;
+}
+
+.workspace-title {
+    color: #A78BFA;
+    font-weight: 700;
+}
+
+.problem-description {
+    color: #CBD5E1;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+.example-box {
+    margin-top: 12px;
+    padding: 18px;
+
+    background: #080D19;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
+    border-radius: 12px;
+
+    color: #CBD5E1;
+
+    white-space: pre-wrap;
+
+    font-family: Consolas, Monaco, monospace;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   AI WORKSPACE
+========================================================= */
+
+.ai-workspace-card {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(139, 92, 246, 0.13),
+            transparent 35%
+        ),
+        #11182D;
+
+    border: 1px solid rgba(139, 92, 246, 0.25);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 50px rgba(139, 92, 246, 0.08);
+}
+
+.ai-workspace-header {
+    padding: 22px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.ai-response-section {
+    padding: 22px;
+
+    min-height: 260px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.mentor-welcome {
+    text-align: center;
+
+    padding: 30px 15px;
+
+    color: #94A3B8;
+}
+
+.mentor-welcome i {
+    font-size: 38px;
+
+    color: #A78BFA;
+}
+
+.mentor-welcome h5 {
+    color: #F8FAFC;
+}
+
+
+/* =========================================================
+   AI RESPONSE
+========================================================= */
+
+.mentor-response {
+    color: #CBD5E1;
+    line-height: 1.75;
+}
+
+.mentor-response h3,
+.mentor-response h4,
+.mentor-response h5 {
+    color: #A78BFA;
+    margin-top: 18px;
+    margin-bottom: 10px;
+}
+
+.mentor-response strong {
+    color: #C4B5FD;
+}
+
+.mentor-response code {
+    color: #67E8F9;
+}
+
+.mentor-response pre {
+    background: #080D19;
+
+    border: 1px solid rgba(139, 92, 246, 0.15);
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    overflow-x: auto;
+
+    margin-top: 12px;
+}
+
+.mentor-response pre code {
+    color: #E2E8F0;
+}
+
+
+/* =========================================================
+   MENTOR CHAT
+========================================================= */
+
+.mentor-chat-section {
+    padding: 22px;
+}
+
+.chat-heading {
+    color: #F8FAFC;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.chat-heading i {
+    color: #A78BFA;
+}
+
+.chat-messages {
+    max-height: 420px;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+.chat-user,
+.chat-ai {
+    padding: 14px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+}
+
+.chat-user {
+    background: rgba(59, 130, 246, 0.12);
+
+    border: 1px solid rgba(59, 130, 246, 0.15);
+
+    text-align: right;
+}
+
+.chat-user strong {
+    color: #67E8F9;
+}
+
+.chat-ai {
+    background: rgba(139, 92, 246, 0.08);
+
+    border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.chat-ai > strong {
+    color: #A78BFA;
+}
+
+.chat-input {
+    resize: none;
+}
+
+.thinking {
+    color: #A78BFA;
+
+    animation: mentorThinking 1.2s infinite alternate;
+}
+
+@keyframes mentorThinking {
+
+    from {
+        opacity: 0.45;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE WORKSPACE
+========================================================= */
+
+@media (min-width: 768px) {
+
+    .problem-page-title {
+        font-size: 42px;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .problem-page-title {
+        font-size: 46px;
+    }
+
+}
+
+@media (max-width: 1199px) {
+
+    .ai-workspace-card {
+        margin-top: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (min-width: 768px) {
+
+    .hero-title {
+        font-size: 64px;
+    }
+
+    .hero-description {
+        font-size: 19px;
+    }
+
+    .section-title {
+        font-size: 42px;
+    }
+}
+
+@media (min-width: 992px) {
+
+    .hero-title {
+        font-size: 76px;
+    }
+
+    .section-title {
+        font-size: 46px;
+    }
+}
+
+
+/* =====================================================
+   AUTHENTICATION PAGES
+===================================================== */
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 40px 0;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(139, 92, 246, 0.14),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(34, 211, 238, 0.10),
+            transparent 30%
+        ),
+        #0B1020;
+}
+
+.auth-card {
+    padding: 35px;
+
+    background: rgba(17, 24, 45, 0.92);
+
+    border: 1px solid rgba(139, 92, 246, 0.22);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.auth-logo {
+    width: 65px;
+    height: 65px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #8B5CF6,
+        #3B82F6
+    );
+
+    color: #FFFFFF;
+
+    font-size: 30px;
+
+    box-shadow:
+        0 10px 30px rgba(139, 92, 246, 0.25);
+}
+
+.auth-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #F8FAFC;
+}
+
+.auth-input {
+    background: #0B1020 !important;
+    color: #F8FAFC !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+
+    border-radius: 10px;
+
+    padding: 12px 14px;
+}
+
+.auth-input::placeholder {
+    color: #64748B;
+}
+
+.auth-input:focus {
+    border-color: #8B5CF6 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.12) !important;
+}
+
+.form-label {
+    color: #CBD5E1;
+    font-weight: 600;
+}
+
+.auth-button {
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #8B5CF6,
+        #3B82F6
+    );
+
+    font-weight: 700;
+
+    transition: 0.3s ease;
+}
+
+.auth-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(139, 92, 246, 0.25);
+}
+
+.auth-link {
+    color: #A78BFA;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    margin-left: 5px;
+}
+
+.auth-link:hover {
+    color: #C4B5FD;
+}
+
+.auth-home-link {
+    color: #94A3B8;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+.auth-home-link:hover {
+    color: #A78BFA;
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard-section {
+    min-height: calc(100vh - 70px);
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(139, 92, 246, 0.08),
+            transparent 30%
+        ),
+        #0B1020;
+}
+
+.dashboard-stat-card {
+    height: 100%;
+    padding: 25px;
+
+    background: rgba(17, 24, 45, 0.85);
+
+    border: 1px solid rgba(139, 92, 246, 0.15);
+
+    border-radius: 18px;
+
+    transition: 0.3s ease;
+}
+
+.dashboard-stat-card:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(139, 92, 246, 0.4);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 22px;
+
+    margin-bottom: 18px;
+}
+
+.stat-icon.purple {
+    background: rgba(139, 92, 246, 0.15);
+    color: #A78BFA;
+}
+
+.stat-icon.blue {
+    background: rgba(241, 242, 245, 0.15);
+    color: #60A5FA;
+}
+
+.stat-icon.cyan {
+    background: rgba(34, 211, 238, 0.15);
+    color: #22D3EE;
+}
+
+.stat-icon.pink {
+    background: rgba(236, 72, 153, 0.15);
+    color: #F472B6;
+}
+
+.stat-number {
+    color: #F8FAFC;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #94A3B8;
+    margin-bottom: 0;
+}
+
+.dashboard-mentor-card {
+    padding: 40px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139, 92, 246, 0.18),
+            rgba(59, 130, 246, 0.10)
+        );
+
+    border: 1px solid rgba(139, 92, 246, 0.25);
+
+    border-radius: 24px;
+}
+
+.mentor-large-icon {
+    width: 130px;
+    height: 130px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(139, 92, 246, 0.15);
+
+    border: 1px solid rgba(139, 92, 246, 0.3);
+
+    color: #A78BFA;
+
+    font-size: 60px;
+
+    box-shadow:
+        0 0 50px rgba(139, 92, 246, 0.15);
+}
+
+.quick-action-card {
+    height: 100%;
+    padding: 30px;
+    background-color: #101A2C;
+    border: 1px solid rgba(245, 241, 232, 0.12);
+    border-radius: 20px;
+    transition: 0.3s ease;
+}
+
+.quick-action-card:hover {
+    transform: translateY(-5px);
+    border-color: #C7F464;
+    background-color: rgba(17, 24, 45, 1);
+}
+
+.quick-icon {
+    color: #A78BFA;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+/* =========================================
+   PROGRESS ANALYTICS
+========================================= */
+
+.progress-analytics-section {
+    margin-top: 20px;
+}
+
+.analytics-card {
+    height: 100%;
+    padding: 30px;
+    background-color: #101A2C;
+    border: 1px solid rgba(245, 241, 232, 0.12);
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transition: 0.3s ease;
+}
+
+.analytics-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(199, 244, 100, 0.45);
+}
+
+.analytics-card h3 {
+    color: #F5F1E8;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.analytics-card h1 {
+    color: #C7F464;
+    font-size: 52px;
+    font-weight: 800;
+}
+
+.analytics-card h4 {
+    color: #C7F464;
+    font-size: 25px;
+}
+
+.analytics-card p,
+.analytics-card small {
+    color: rgba(245, 241, 232, 0.65) !important;
+}
+
+
+/* Progress bars */
+
+.analytics-card .progress {
+    background-color: rgba(245, 241, 232, 0.08);
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.analytics-card .progress-bar {
+    border-radius: 50px;
+    transition: width 1s ease;
+}
+
+
+/* Overall progress */
+
+#overallProgressBar {
+    background-color: #C7F464;
+}
+
+
+/* Difficulty section */
+
+.difficulty-item {
+    padding: 5px 0;
+}
+
+.difficulty-item span {
+    color: #F5F1E8;
+}
+
+
+/* Easy */
+
+#easyProgressBar {
+    background-color: #198754 !important;
+}
+
+
+/* Medium */
+
+#mediumProgressBar {
+    background-color: #ffc107 !important;
+}
+
+
+/* Hard */
+
+#hardProgressBar {
+    background-color: #dc3545 !important;
+}
+
+
+/* Analytics icon */
+
+.analytics-card > div:first-child i {
+    color: #C7F464;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 767px) {
+
+    .analytics-card {
+        padding: 22px;
+        border-radius: 20px;
+    }
+
+    .analytics-card h3 {
+        font-size: 20px;
+    }
+
+    .analytics-card h1 {
+        font-size: 42px;
+    }
+
+    .analytics-card h4 {
+        font-size: 22px;
+    }
+
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (min-width: 768px) {
+
+    .analytics-card {
+        padding: 28px;
+    }
+
+}
+
+
+/* =========================================
+   DESKTOP
+========================================= */
+
+@media (min-width: 992px) {
+
+    .analytics-card {
+        padding: 32px;
+    }
+
+}
+
+
+/* =========================================
+   TOPIC-WISE PROGRESS
+========================================= */
+
+.topic-progress-section {
+    margin-top: 30px;
+}
+
+.topic-progress-section h3 {
+    color: #F5F1E8;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.topic-progress-section p {
+    color: rgba(245, 241, 232, 0.65);
+    font-size: 16px;
+}
+
+.topic-progress-item {
+    padding: 18px;
+    background-color: rgba(245, 241, 232, 0.03);
+    border: 1px solid rgba(245, 241, 232, 0.08);
+    border-radius: 16px;
+    transition: 0.3s ease;
+}
+
+.topic-progress-item:hover {
+    border-color: rgba(199, 244, 100, 0.35);
+    transform: translateY(-2px);
+}
+
+.topic-name {
+    color: #F5F1E8;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.topic-count {
+    color: #C7F464;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.topic-progress-item .progress {
+    height: 10px;
+    background-color: rgba(245, 241, 232, 0.08);
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.topic-progress-item .progress-bar {
+    background-color: #C7F464;
+    border-radius: 50px;
+    transition: width 1s ease;
+}
+
+.topic-progress-item small {
+    display: block;
+    margin-top: 8px;
+    color: rgba(245, 241, 232, 0.55);
+    font-size: 13px;
+}
+
+@media (max-width: 767px) {
+
+    .topic-progress-section h3 {
+        font-size: 21px;
+    }
+
+    .topic-progress-item {
+        padding: 15px;
+    }
+
+    .topic-name {
+        font-size: 15px;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    .topic-progress-item {
+        padding: 20px;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .topic-progress-item {
+        padding: 22px;
+    }
+
+}
+
+/* =========================================
+   RECOMMENDED PROBLEMS
+========================================= */
+
+.recommended-problems-section {
+    margin-top: 30px;
+}
+
+.recommended-problems-title {
+    color: #F5F1E8;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.recommended-problems-subtitle {
+    color: rgba(245, 241, 232, 0.65);
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   RECOMMENDED PROBLEM CARD
+========================================= */
+
+.recommended-problem-card {
+    position: relative;
+    padding: 24px;
+    background-color: rgba(245, 241, 232, 0.03);
+    border: 1px solid rgba(245, 241, 232, 0.08);
+    border-radius: 18px;
+    transition: 0.3s ease;
+}
+
+.recommended-problem-card:hover {
+    border-color: rgba(199, 244, 100, 0.4);
+    transform: translateY(-5px);
+}
+
+
+/* =========================================
+   PROBLEM NUMBER
+========================================= */
+
+.recommended-problem-number {
+    color: rgba(199, 244, 100, 0.7);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+
+/* =========================================
+   PROBLEM TITLE
+========================================= */
+
+.recommended-problem-title {
+    color: #F5F1E8;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+
+/* =========================================
+   TOPIC
+========================================= */
+
+.recommended-problem-topic {
+    color: rgba(245, 241, 232, 0.65);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.recommended-problem-topic i {
+    color: #C7F464;
+}
+
+
+/* =========================================
+   DIFFICULTY
+========================================= */
+
+.recommended-problem-difficulty {
+    margin-bottom: 15px;
+}
+
+.difficulty-easy,
+.difficulty-medium,
+.difficulty-hard {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.difficulty-easy {
+    color: #101A2C;
+    background-color: #C7F464;
+}
+
+.difficulty-medium {
+    color: #101A2C;
+    background-color: #F5F1E8;
+}
+
+.difficulty-hard {
+    color: #F5F1E8;
+    background-color: rgba(245, 241, 232, 0.12);
+    border: 1px solid rgba(245, 241, 232, 0.2);
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.recommended-problem-description {
+    color: rgba(245, 241, 232, 0.6);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.recommended-problem-actions {
+    margin-top: auto;
+}
+
+.recommended-solve-btn {
+    color: #101A2C;
+    background-color: #C7F464;
+    border: 1px solid #C7F464;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 9px 13px;
+    margin-right: 6px;
+    transition: 0.3s ease;
+}
+
+.recommended-solve-btn:hover {
+    color: #101A2C;
+    background-color: #F5F1E8;
+    border-color: #F5F1E8;
+}
+
+.recommended-mentor-btn {
+    color: #F5F1E8;
+    background-color: transparent;
+    border: 1px solid rgba(245, 241, 232, 0.2);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 9px 13px;
+    transition: 0.3s ease;
+}
+
+.recommended-mentor-btn:hover {
+    color: #101A2C;
+    background-color: #C7F464;
+    border-color: #C7F464;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.recommended-empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: rgba(245, 241, 232, 0.03);
+    border: 1px solid rgba(245, 241, 232, 0.08);
+    border-radius: 18px;
+}
+
+.recommended-empty-icon {
+    color: #C7F464;
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.recommended-empty-state h4 {
+    color: #F5F1E8;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.recommended-empty-state p {
+    color: rgba(245, 241, 232, 0.55);
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 767px) {
+
+    .recommended-problems-title {
+        font-size: 21px;
+    }
+
+    .recommended-problems-subtitle {
+        font-size: 14px;
+    }
+
+    .recommended-problem-card {
+        padding: 18px;
+    }
+
+    .recommended-problem-title {
+        font-size: 18px;
+    }
+
+    .recommended-problem-description {
+        font-size: 13px;
+    }
+
+    .recommended-solve-btn,
+    .recommended-mentor-btn {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    .recommended-problem-card {
+        padding: 22px;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .recommended-problem-card {
+        padding: 24px;
+    }
+
+}
+
+/* =====================================================
+   AI MENTOR CHAT
+===================================================== */
+
+.chat-messages {
+    max-height: 430px;
+    overflow-y: auto;
+    padding: 5px;
+    scrollbar-width: thin;
+}
+
+.chat-user {
+    max-width: 90%;
+    margin-left: auto;
+    margin-bottom: 15px;
+    padding: 13px 15px;
+
+    color: #101A2C;
+    background-color: #C7F464;
+
+    border-radius: 14px 14px 4px 14px;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.chat-user strong {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.chat-ai {
+    max-width: 90%;
+    margin-right: auto;
+    margin-bottom: 15px;
+    padding: 13px 15px;
+
+    color: #F5F1E8;
+    background-color: rgba(245, 241, 232, 0.05);
+
+    border: 1px solid rgba(245, 241, 232, 0.08);
+
+    border-radius: 14px 14px 14px 4px;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.chat-ai strong {
+    color: #C7F464;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   AI RESPONSE FORMATTING
+===================================================== */
+
+.mentor-response h3,
+.mentor-response h4,
+.mentor-response h5 {
+    color: #C7F464;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.mentor-response strong {
+    color: #F5F1E8;
+}
+
+.mentor-list-item {
+    margin: 5px 0;
+    color: rgba(245, 241, 232, 0.8);
+}
+
+
+/* =====================================================
+   AI CODE BLOCK
+===================================================== */
+
+.mentor-code-block {
+    margin-top: 12px;
+    margin-bottom: 12px;
+
+    padding: 14px;
+
+    overflow-x: auto;
+
+    color: #F5F1E8;
+    background-color: #101A2C;
+
+    border: 1px solid rgba(199, 244, 100, 0.15);
+    border-radius: 10px;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   AI THINKING INDICATOR
+===================================================== */
+
+.thinking {
+    color: rgba(245, 241, 232, 0.65);
+    font-size: 13px;
+}
+
+.mentor-spinner {
+    display: inline-block;
+
+    width: 13px;
+    height: 13px;
+
+    margin-right: 7px;
+
+    vertical-align: -2px;
+
+    border: 2px solid rgba(245, 241, 232, 0.2);
+    border-top-color: #C7F464;
+
+    border-radius: 50%;
+
+    animation: mentorSpin 0.8s linear infinite;
+}
+
+@keyframes mentorSpin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* =====================================================
+   PROBLEM CONTENT
+===================================================== */
+
+.problem-description {
+    color: #CBD5E1;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+.problem-example {
+    margin: 0;
+
+    padding: 16px;
+
+    color: #CBD5E1;
+    background-color: #080D19;
+
+    border: 1px solid rgba(245, 241, 232, 0.08);
+    border-radius: 12px;
+
+    white-space: pre-wrap;
+    overflow-x: auto;
+
+    font-family: Consolas, Monaco, monospace;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .chat-user,
+    .chat-ai {
+        max-width: 95%;
+    }
+
+    .chat-messages {
+        max-height: 380px;
+    }
+
+    .problem-example {
+        font-size: 13px;
+        padding: 13px;
+    }
+
+}

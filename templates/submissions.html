@@ -1,0 +1,1257 @@
+
+{% extends "base.html" %}
+
+{% block title %}Submissions | AI DSA Mentor{% endblock %}
+
+{% block content %}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- ===================================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================================== -->
+
+    <div class="mb-4">
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+
+            <div>
+
+                <span class="badge bg-primary-subtle text-primary mb-2">
+                    <i class="bi bi-terminal me-1"></i>
+                    Coding Activity
+                </span>
+
+                <h1 class="fw-bold mb-2">
+                    My Submissions
+                </h1>
+
+                <p class="text-secondary mb-0">
+                    View your recent code submissions and execution results.
+                </p>
+
+            </div>
+
+            <a
+                href="{{ url_for('problems') }}"
+                class="btn btn-primary"
+            >
+                <i class="bi bi-code-square me-2"></i>
+                Solve Problems
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- STATISTICS -->
+    <!-- ===================================================== -->
+
+    <div class="row g-3 mb-4">
+
+        <!-- Total Submissions -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p class="text-secondary small mb-1">
+                                Total Submissions
+                            </p>
+
+                            <h3 class="fw-bold mb-0">
+                                {{ submissions|length }}
+                            </h3>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center"
+                            style="width: 48px; height: 48px;"
+                        >
+                            <i class="bi bi-send fs-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Accepted -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p class="text-secondary small mb-1">
+                                Accepted
+                            </p>
+
+                            <h3 class="fw-bold mb-0">
+
+                                {% set accepted_count = namespace(value=0) %}
+
+                                {% for submission in submissions %}
+
+                                    {% if submission.status|lower == "accepted" %}
+
+                                        {% set accepted_count.value =
+                                            accepted_count.value + 1
+                                        %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                                {{ accepted_count.value }}
+
+                            </h3>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center"
+                            style="width: 48px; height: 48px;"
+                        >
+                            <i class="bi bi-check-circle fs-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Failed -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p class="text-secondary small mb-1">
+                                Failed
+                            </p>
+
+                            <h3 class="fw-bold mb-0">
+
+                                {% set failed_submissions = namespace(value=0) %}
+
+                                {% for submission in submissions %}
+
+                                    {% if submission.status|lower != "accepted" %}
+
+                                        {% set failed_submissions.value =
+                                            failed_submissions.value + 1
+                                        %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                                {{ failed_submissions.value }}
+
+                            </h3>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-danger-subtle text-danger d-flex align-items-center justify-content-center"
+                            style="width: 48px; height: 48px;"
+                        >
+                            <i class="bi bi-x-circle fs-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Languages -->
+
+        <div class="col-12 col-sm-6 col-lg-3">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p class="text-secondary small mb-1">
+                                Languages Used
+                            </p>
+
+                            <h3 class="fw-bold mb-0">
+
+                                {% set languages = [] %}
+
+                                {% for submission in submissions %}
+
+                                    {% if submission.language
+                                          and submission.language not in languages %}
+
+                                        {% set _ = languages.append(
+                                            submission.language
+                                        ) %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                                {{ languages|length }}
+
+                            </h3>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center"
+                            style="width: 48px; height: 48px;"
+                        >
+                            <i class="bi bi-code-slash fs-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- SUBMISSION HISTORY -->
+    <!-- ===================================================== -->
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-0">
+
+            <div class="p-4 border-bottom">
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+
+                    <div>
+
+                        <h4 class="fw-bold mb-1">
+                            Submission History
+                        </h4>
+
+                        <p class="text-secondary mb-0 small">
+                            Your latest coding attempts are shown below.
+                        </p>
+
+                    </div>
+
+                    <span class="badge bg-light text-dark border">
+                        {{ submissions|length }} submissions
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            {% if submissions %}
+
+            <!-- ================================================= -->
+            <!-- SUBMISSION TABLE -->
+            <!-- ================================================= -->
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th class="ps-4">
+                                #
+                            </th>
+
+                            <th>
+                                Problem
+                            </th>
+
+                            <th>
+                                Language
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Test Cases
+                            </th>
+
+                            <th>
+                                Time
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th class="text-end pe-4">
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for submission in submissions %}
+
+                        <tr>
+
+                            <!-- Number -->
+
+                            <td class="ps-4">
+
+                                <span class="text-secondary">
+                                    {{ loop.index }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- Problem -->
+
+                            <td>
+
+                                {% if submission.problem_id %}
+
+                                    <a
+                                        href="{{ url_for(
+                                            'problem',
+                                            problem_id=submission.problem_id
+                                        ) }}"
+                                        class="text-decoration-none fw-semibold"
+                                    >
+
+                                        {% if submission.problem_title %}
+
+                                            {{ submission.problem_title }}
+
+                                        {% else %}
+
+                                            Problem #{{ submission.problem_id }}
+
+                                        {% endif %}
+
+                                    </a>
+
+                                    <div class="small text-secondary mt-1">
+                                        Problem #{{ submission.problem_id }}
+                                    </div>
+
+                                {% else %}
+
+                                    <span class="fw-semibold">
+                                        Problem
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Language -->
+
+                            <td>
+
+                                {% set language =
+                                    submission.language
+                                    |default('python', true)
+                                    |lower
+                                %}
+
+                                {% if language == 'python' %}
+
+                                    <span class="badge bg-primary-subtle text-primary">
+
+                                        <i class="bi bi-filetype-py me-1"></i>
+
+                                        Python
+
+                                    </span>
+
+                                {% elif language in ['cpp', 'c++'] %}
+
+                                    <span class="badge bg-info-subtle text-info">
+
+                                        <i class="bi bi-filetype-cpp me-1"></i>
+
+                                        C++
+
+                                    </span>
+
+                                {% elif language == 'c' %}
+
+                                    <span class="badge bg-secondary-subtle text-secondary">
+
+                                        <i class="bi bi-filetype-c me-1"></i>
+
+                                        C
+
+                                    </span>
+
+                                {% elif language == 'java' %}
+
+                                    <span class="badge bg-danger-subtle text-danger">
+
+                                        <i class="bi bi-filetype-java me-1"></i>
+
+                                        Java
+
+                                    </span>
+
+                                {% elif language in ['javascript', 'js'] %}
+
+                                    <span class="badge bg-warning-subtle text-warning">
+
+                                        <i class="bi bi-filetype-js me-1"></i>
+
+                                        JavaScript
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-light text-dark border">
+
+                                        {{ submission.language }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Status -->
+
+                            <td>
+
+                                {% set status =
+                                    submission.status
+                                    |default('Unknown', true)
+                                %}
+
+                                {% set status_lower =
+                                    status|lower
+                                %}
+
+                                {% if status_lower == 'accepted' %}
+
+                                    <span class="badge bg-success-subtle text-success">
+
+                                        <i class="bi bi-check-circle me-1"></i>
+
+                                        Accepted
+
+                                    </span>
+
+                                {% elif status_lower == 'wrong answer' %}
+
+                                    <span class="badge bg-danger-subtle text-danger">
+
+                                        <i class="bi bi-x-circle me-1"></i>
+
+                                        Wrong Answer
+
+                                    </span>
+
+                                {% elif status_lower == 'runtime error' %}
+
+                                    <span class="badge bg-danger-subtle text-danger">
+
+                                        <i class="bi bi-exclamation-triangle me-1"></i>
+
+                                        Runtime Error
+
+                                    </span>
+
+                                {% elif status_lower == 'compilation error' %}
+
+                                    <span class="badge bg-danger-subtle text-danger">
+
+                                        <i class="bi bi-exclamation-triangle me-1"></i>
+
+                                        Compilation Error
+
+                                    </span>
+
+                                {% elif status_lower in ['pending', 'running'] %}
+
+                                    <span class="badge bg-warning-subtle text-warning">
+
+                                        <i class="bi bi-hourglass-split me-1"></i>
+
+                                        {{ status|title }}
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary-subtle text-secondary">
+
+                                        {{ status|replace('_', ' ')|title }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Test Cases -->
+
+                            <td>
+
+                                {% if submission.total > 0 %}
+
+                                    {% if submission.failed == 0 %}
+
+                                        <span class="text-success fw-semibold">
+
+                                            <i class="bi bi-check-circle me-1"></i>
+
+                                            {{ submission.passed }}
+                                            /
+                                            {{ submission.total }}
+
+                                        </span>
+
+                                        <div class="small text-success">
+                                            All passed
+                                        </div>
+
+                                    {% else %}
+
+                                        <span class="text-danger fw-semibold">
+
+                                            <i class="bi bi-x-circle me-1"></i>
+
+                                            {{ submission.passed }}
+                                            /
+                                            {{ submission.total }}
+
+                                        </span>
+
+                                        <div class="small text-danger">
+
+                                            {{ submission.failed }}
+                                            failed
+
+                                        </div>
+
+                                    {% endif %}
+
+                                {% else %}
+
+                                    <span class="text-secondary">
+                                        —
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Execution Time -->
+
+                            <td>
+
+                                {% if submission.execution_time is not none %}
+
+                                    {{ "%.4f"|format(
+                                        submission.execution_time|float
+                                    ) }}
+
+                                    <span class="text-secondary small">
+                                        sec
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="text-secondary">
+                                        —
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Date -->
+
+                            <td>
+
+                                {% if submission.created_at %}
+
+                                    <span class="small">
+                                        {{ submission.created_at }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="text-secondary">
+                                        —
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Action -->
+
+                            <td class="text-end pe-4">
+
+                                {% if submission.problem_id %}
+
+                                <div class="d-inline-flex gap-2">
+
+                                    <!-- View Submitted Code -->
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm btn-outline-primary"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#submissionCode{{ submission.id }}"
+                                        aria-expanded="false"
+                                        aria-controls="submissionCode{{ submission.id }}"
+                                        title="View Submitted Code"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </button>
+
+
+                                    <!-- Open Compiler -->
+
+                                    <a
+                                        href="{{ url_for(
+                                            'compiler',
+                                            problem_id=submission.problem_id
+                                        ) }}"
+                                        class="btn btn-sm btn-primary"
+                                        title="Open Compiler"
+                                    >
+
+                                        <i class="bi bi-code-slash"></i>
+
+                                    </a>
+
+
+                                    <!-- View Details -->
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm btn-outline-secondary"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#submissionDetails{{ submission.id }}"
+                                        aria-expanded="false"
+                                        aria-controls="submissionDetails{{ submission.id }}"
+                                        title="View Submission Details"
+                                    >
+
+                                        <i class="bi bi-chevron-down"></i>
+
+                                    </button>
+
+                                </div>
+
+                                {% else %}
+
+                                    <span class="text-secondary">
+                                        —
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ================================================= -->
+                        <!-- SUBMITTED CODE -->
+                        <!-- ================================================= -->
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="p-0 border-0"
+                            >
+
+                                <div
+                                    class="collapse"
+                                    id="submissionCode{{ submission.id }}"
+                                >
+
+                                    <div class="p-4 bg-dark">
+
+                                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+
+                                            <h5 class="fw-bold text-white mb-0">
+
+                                                <i class="bi bi-code-slash me-2"></i>
+
+                                                Submitted Code
+
+                                            </h5>
+
+                                            <span class="badge bg-light text-dark">
+
+                                                {{ submission.language|title }}
+
+                                            </span>
+
+                                        </div>
+
+                                        {% if submission.code %}
+
+                                            <pre
+                                                class="bg-black text-light rounded p-3 mb-0"
+                                                style="white-space: pre-wrap; overflow-x: auto;"
+                                            ><code>{{ submission.code }}</code></pre>
+
+                                        {% else %}
+
+                                            <div class="text-center text-white py-4">
+
+                                                <i class="bi bi-code-slash fs-2"></i>
+
+                                                <p class="mb-0 mt-2">
+                                                    Submitted code is not available.
+                                                </p>
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- ================================================= -->
+                        <!-- SUBMISSION DETAILS -->
+                        <!-- ================================================= -->
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="p-0 border-0"
+                            >
+
+                                <div
+                                    class="collapse"
+                                    id="submissionDetails{{ submission.id }}"
+                                >
+
+                                    <div class="p-4 bg-light border-top border-bottom">
+
+                                        <div class="row g-4">
+
+
+                                            <!-- Submission Summary -->
+
+                                            <div class="col-12 col-lg-4">
+
+                                                <div class="card border-0 shadow-sm h-100">
+
+                                                    <div class="card-body">
+
+                                                        <h5 class="fw-bold mb-3">
+
+                                                            <i class="bi bi-file-earmark-text me-2"></i>
+
+                                                            Submission Summary
+
+                                                        </h5>
+
+
+                                                        <div class="mb-3">
+
+                                                            <small class="text-secondary d-block">
+                                                                Problem
+                                                            </small>
+
+                                                            <strong>
+                                                                {{ submission.problem_title
+                                                                   or
+                                                                   ('Problem #' ~ submission.problem_id)
+                                                                }}
+                                                            </strong>
+
+                                                        </div>
+
+
+                                                        <div class="mb-3">
+
+                                                            <small class="text-secondary d-block">
+                                                                Language
+                                                            </small>
+
+                                                            <strong>
+                                                                {{ submission.language|title }}
+                                                            </strong>
+
+                                                        </div>
+
+
+                                                        <div class="mb-3">
+
+                                                            <small class="text-secondary d-block">
+                                                                Status
+                                                            </small>
+
+                                                            {% if submission.status|lower == 'accepted' %}
+
+                                                                <span class="text-success fw-semibold">
+
+                                                                    <i class="bi bi-check-circle me-1"></i>
+
+                                                                    Accepted
+
+                                                                </span>
+
+                                                            {% elif submission.status|lower == 'wrong answer' %}
+
+                                                                <span class="text-danger fw-semibold">
+
+                                                                    <i class="bi bi-x-circle me-1"></i>
+
+                                                                    Wrong Answer
+
+                                                                </span>
+
+                                                            {% elif submission.status|lower == 'runtime error' %}
+
+                                                                <span class="text-danger fw-semibold">
+
+                                                                    <i class="bi bi-exclamation-triangle me-1"></i>
+
+                                                                    Runtime Error
+
+                                                                </span>
+
+                                                            {% else %}
+
+                                                                <span class="fw-semibold">
+                                                                    {{ submission.status|title }}
+                                                                </span>
+
+                                                            {% endif %}
+
+                                                        </div>
+
+
+                                                        <div class="mb-3">
+
+                                                            <small class="text-secondary d-block">
+                                                                Test Cases
+                                                            </small>
+
+                                                            <strong>
+
+                                                                {{ submission.passed }}
+                                                                /
+                                                                {{ submission.total }}
+
+                                                            </strong>
+
+                                                        </div>
+
+
+                                                        <div>
+
+                                                            <small class="text-secondary d-block">
+                                                                Execution Time
+                                                            </small>
+
+                                                            <strong>
+
+                                                                {{ "%.4f"|format(
+                                                                    submission.execution_time|float
+                                                                ) }}
+
+                                                                sec
+
+                                                            </strong>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- Test Case Results -->
+
+                                            <div class="col-12 col-lg-8">
+
+                                                <div class="card border-0 shadow-sm">
+
+                                                    <div class="card-body">
+
+                                                        <div class="d-flex justify-content-between align-items-center mb-3">
+
+                                                            <h5 class="fw-bold mb-0">
+
+                                                                <i class="bi bi-list-check me-2"></i>
+
+                                                                Test Cases
+
+                                                            </h5>
+
+                                                            <span class="badge bg-light text-dark border">
+
+                                                                {{ submission.passed }}
+                                                                /
+                                                                {{ submission.total }}
+
+                                                                Passed
+
+                                                            </span>
+
+                                                        </div>
+
+
+                                                        {% if submission.test_cases %}
+
+                                                            <div class="list-group">
+
+                                                                {% for test in submission.test_cases %}
+
+                                                                    <div class="list-group-item">
+
+                                                                        <div class="d-flex justify-content-between align-items-center mb-2">
+
+                                                                            <strong>
+
+                                                                                Test Case
+                                                                                {{ test.test_case }}
+
+                                                                            </strong>
+
+
+                                                                            {% if test.status|lower == 'passed' %}
+
+                                                                                <span class="badge bg-success-subtle text-success">
+
+                                                                                    <i class="bi bi-check-circle me-1"></i>
+
+                                                                                    Passed
+
+                                                                                </span>
+
+                                                                            {% elif test.status|lower == 'failed' %}
+
+                                                                                <span class="badge bg-danger-subtle text-danger">
+
+                                                                                    <i class="bi bi-x-circle me-1"></i>
+
+                                                                                    Failed
+
+                                                                                </span>
+
+                                                                            {% else %}
+
+                                                                                <span class="badge bg-danger-subtle text-danger">
+
+                                                                                    <i class="bi bi-exclamation-triangle me-1"></i>
+
+                                                                                    {{ test.status }}
+
+                                                                                </span>
+
+                                                                            {% endif %}
+
+                                                                        </div>
+
+
+                                                                        <div class="row g-3">
+
+                                                                            <div class="col-12 col-md-4">
+
+                                                                                <small class="text-secondary d-block mb-1">
+                                                                                    Input
+                                                                                </small>
+
+                                                                                <pre
+                                                                                    class="bg-light border rounded p-2 small mb-0"
+                                                                                    style="white-space: pre-wrap;"
+                                                                                >{{ test.input }}</pre>
+
+                                                                            </div>
+
+
+                                                                            <div class="col-12 col-md-4">
+
+                                                                                <small class="text-secondary d-block mb-1">
+                                                                                    Expected Output
+                                                                                </small>
+
+                                                                                <pre
+                                                                                    class="bg-light border rounded p-2 small mb-0"
+                                                                                    style="white-space: pre-wrap;"
+                                                                                >{{ test.expected }}</pre>
+
+                                                                            </div>
+
+
+                                                                            <div class="col-12 col-md-4">
+
+                                                                                <small class="text-secondary d-block mb-1">
+                                                                                    Actual Output
+                                                                                </small>
+
+                                                                                <pre
+                                                                                    class="bg-light border rounded p-2 small mb-0"
+                                                                                    style="white-space: pre-wrap;"
+                                                                                >{{ test.actual }}</pre>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                {% endfor %}
+
+                                                            </div>
+
+                                                        {% else %}
+
+                                                            <div class="text-center py-4">
+
+                                                                <i class="bi bi-info-circle fs-3 text-secondary"></i>
+
+                                                                <p class="text-secondary mb-0 mt-2">
+
+                                                                    Detailed test-case information is not available for this submission.
+
+                                                                </p>
+
+                                                            </div>
+
+                                                        {% endif %}
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            {% else %}
+
+            <!-- ================================================= -->
+            <!-- EMPTY STATE -->
+            <!-- ================================================= -->
+
+            <div class="text-center py-5 px-4">
+
+                <div
+                    class="mx-auto mb-4 rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center"
+                    style="width: 80px; height: 80px;"
+                >
+
+                    <i class="bi bi-terminal fs-2"></i>
+
+                </div>
+
+                <h4 class="fw-bold mb-2">
+                    No Submissions Yet
+                </h4>
+
+                <p
+                    class="text-secondary mb-4 mx-auto"
+                    style="max-width: 500px;"
+                >
+
+                    You haven't submitted any solutions yet.
+                    Pick a DSA problem, write your solution, and submit it
+                    using the compiler.
+
+                </p>
+
+                <a
+                    href="{{ url_for('problems') }}"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-code-square me-2"></i>
+
+                    Browse Problems
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- HELPFUL INFORMATION -->
+    <!-- ===================================================== -->
+
+    <div class="row g-3 mt-4">
+
+        <div class="col-12 col-lg-4">
+
+            <div class="card border-0 bg-primary-subtle h-100">
+
+                <div class="card-body p-4">
+
+                    <i class="bi bi-lightbulb text-primary fs-3 mb-3"></i>
+
+                    <h5 class="fw-bold">
+                        Keep Practicing
+                    </h5>
+
+                    <p class="text-secondary small mb-0">
+
+                        Failed submissions are part of the learning process.
+                        Read the result, understand the problem, and try again.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-12 col-lg-4">
+
+            <div class="card border-0 bg-success-subtle h-100">
+
+                <div class="card-body p-4">
+
+                    <i class="bi bi-check2-circle text-success fs-3 mb-3"></i>
+
+                    <h5 class="fw-bold">
+                        Track Your Progress
+                    </h5>
+
+                    <p class="text-secondary small mb-0">
+
+                        Accepted solutions contribute to your DSA progress
+                        and help you identify problems you have mastered.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-12 col-lg-4">
+
+            <div class="card border-0 bg-warning-subtle h-100">
+
+                <div class="card-body p-4">
+
+                    <i class="bi bi-robot text-warning fs-3 mb-3"></i>
+
+                    <h5 class="fw-bold">
+                        Need Help?
+                    </h5>
+
+                    <p class="text-secondary small mb-0">
+
+                        Use the AI Mentor on a problem page to get hints,
+                        approaches, complexity explanations, and code analysis.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

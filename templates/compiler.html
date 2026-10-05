@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Compiler | AI DSA Mentor
+    </title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <style>
+
+        body {
+            background-color: #101A2C;
+            color: #F5F1E8;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #101A2C;
+            border-bottom: 1px solid rgba(245, 241, 232, 0.1);
+        }
+
+        .navbar-brand {
+            color: #C7F464 !important;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            color: #F5F1E8 !important;
+        }
+
+        .nav-link:hover {
+            color: #C7F464 !important;
+        }
+
+        .compiler-container {
+            padding-top: 35px;
+            padding-bottom: 60px;
+        }
+
+        .page-title {
+            color: #C7F464;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            color: rgba(245, 241, 232, 0.7);
+        }
+
+        .problem-info {
+            background-color: rgba(245, 241, 232, 0.04);
+            border: 1px solid rgba(245, 241, 232, 0.12);
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .problem-title {
+            color: #F5F1E8;
+            font-weight: 700;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            background-color: rgba(199, 244, 100, 0.12);
+            color: #C7F464;
+            border: 1px solid rgba(199, 244, 100, 0.3);
+            border-radius: 20px;
+            padding: 5px 13px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .topic-badge {
+            display: inline-block;
+            background-color: rgba(245, 241, 232, 0.08);
+            color: #F5F1E8;
+            border: 1px solid rgba(245, 241, 232, 0.15);
+            border-radius: 20px;
+            padding: 5px 13px;
+            font-size: 13px;
+        }
+
+        .problem-description {
+            color: rgba(245, 241, 232, 0.85);
+            line-height: 1.7;
+            margin-top: 15px;
+        }
+
+        .example-box {
+            background-color: #0b1322;
+            border: 1px solid rgba(245, 241, 232, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .example-title {
+            color: #C7F464;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .example-content {
+            color: #F5F1E8;
+            font-family: Consolas, "Courier New", monospace;
+            white-space: pre-wrap;
+            font-size: 14px;
+        }
+
+        .compiler-card {
+            background-color: rgba(245, 241, 232, 0.04);
+            border: 1px solid rgba(245, 241, 232, 0.12);
+            border-radius: 18px;
+            padding: 25px;
+        }
+
+        .form-label {
+            color: #C7F464;
+            font-weight: 600;
+        }
+
+        .language-select {
+            background-color: #0b1322;
+            color: #F5F1E8;
+            border: 1px solid rgba(245, 241, 232, 0.15);
+            border-radius: 9px;
+        }
+
+        .language-select:focus {
+            background-color: #0b1322;
+            color: #F5F1E8;
+            border-color: #C7F464;
+            box-shadow: none;
+        }
+
+        .language-select option {
+            background-color: #101A2C;
+            color: #F5F1E8;
+        }
+
+        .code-editor {
+            width: 100%;
+            min-height: 430px;
+            background-color: #070d18;
+            color: #F5F1E8;
+            border: 1px solid rgba(245, 241, 232, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        .code-editor:focus {
+            outline: none;
+            border-color: #C7F464;
+            box-shadow: 0 0 0 2px rgba(199, 244, 100, 0.08);
+        }
+
+        .input-editor {
+            width: 100%;
+            min-height: 130px;
+            background-color: #070d18;
+            color: #F5F1E8;
+            border: 1px solid rgba(245, 241, 232, 0.15);
+            border-radius: 12px;
+            padding: 15px;
+            font-family: Consolas, "Courier New", monospace;
+            resize: vertical;
+        }
+
+        .input-editor:focus {
+            outline: none;
+            border-color: #C7F464;
+        }
+
+        /* RUN BUTTON */
+
+        .run-btn {
+            background-color: #C7F464;
+            color: #101A2C;
+            border: none;
+            border-radius: 9px;
+            padding: 11px 22px;
+            font-weight: 700;
+        }
+
+        .run-btn:hover {
+            background-color: #d5ff7c;
+            color: #101A2C;
+        }
+
+        .run-btn:disabled {
+            opacity: 0.7;
+        }
+
+        /* SUBMIT BUTTON */
+
+        .submit-btn {
+            background-color: #6f42c1;
+            color: #ffffff;
+            border: none;
+            border-radius: 9px;
+            padding: 11px 22px;
+            font-weight: 700;
+        }
+
+        .submit-btn:hover {
+            background-color: #8458d8;
+            color: #ffffff;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+        }
+
+        /* CLEAR BUTTON */
+
+        .clear-btn {
+            background-color: transparent;
+            color: #F5F1E8;
+            border: 1px solid rgba(245, 241, 232, 0.2);
+            border-radius: 9px;
+            padding: 11px 22px;
+        }
+
+        .clear-btn:hover {
+            background-color: rgba(245, 241, 232, 0.08);
+            color: #F5F1E8;
+        }
+
+        /* OUTPUT */
+
+        .output-card {
+            margin-top: 25px;
+            background-color: #070d18;
+            border: 1px solid rgba(245, 241, 232, 0.12);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .output-header {
+            padding: 15px 18px;
+            border-bottom: 1px solid rgba(245, 241, 232, 0.1);
+        }
+
+        .output-title {
+            color: #C7F464;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            font-size: 12px;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .status-ready {
+            background-color: rgba(245, 241, 232, 0.1);
+            color: #F5F1E8;
+        }
+
+        .status-success {
+            background-color: rgba(25, 135, 84, 0.2);
+            color: #75e6a3;
+        }
+
+        .status-error {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: #ff8794;
+        }
+
+        .status-purple {
+            background-color: rgba(111, 66, 193, 0.2);
+            color: #c8a8ff;
+        }
+
+        .output-content {
+            min-height: 180px;
+            padding: 20px;
+            color: #F5F1E8;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        /* SUBMISSION SUMMARY */
+
+        .submission-summary {
+            display: none;
+            margin-top: 25px;
+            background-color: #070d18;
+            border: 1px solid rgba(245, 241, 232, 0.12);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .submission-summary-header {
+            padding: 15px 18px;
+            border-bottom: 1px solid rgba(245, 241, 232, 0.1);
+        }
+
+        .submission-summary-title {
+            color: #C7F464;
+            font-weight: 700;
+        }
+
+        .summary-content {
+            padding: 20px;
+        }
+
+        .summary-stat {
+            background-color: rgba(245, 241, 232, 0.04);
+            border: 1px solid rgba(245, 241, 232, 0.08);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .summary-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #C7F464;
+        }
+
+        .summary-label {
+            color: rgba(245, 241, 232, 0.65);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        /* TEST CASES */
+
+        .test-cases-card {
+            display: none;
+            margin-top: 25px;
+            background-color: #070d18;
+            border: 1px solid rgba(245, 241, 232, 0.12);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .test-cases-header {
+            padding: 15px 18px;
+            border-bottom: 1px solid rgba(245, 241, 232, 0.1);
+        }
+
+        .test-cases-title {
+            color: #C7F464;
+            font-weight: 700;
+        }
+
+        .test-case-item {
+            padding: 20px;
+            border-bottom: 1px solid rgba(245, 241, 232, 0.08);
+        }
+
+        .test-case-item:last-child {
+            border-bottom: none;
+        }
+
+        .test-case-heading {
+            color: #F5F1E8;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .test-pass {
+            color: #75e6a3;
+        }
+
+        .test-fail {
+            color: #ff8794;
+        }
+
+        .test-output-box {
+            background-color: #101A2C;
+            border: 1px solid rgba(245, 241, 232, 0.08);
+            border-radius: 8px;
+            padding: 12px;
+            min-height: 60px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .test-label {
+            color: rgba(245, 241, 232, 0.65);
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .back-btn {
+            color: #F5F1E8;
+            text-decoration: none;
+            border: 1px solid rgba(245, 241, 232, 0.15);
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+
+        .back-btn:hover {
+            color: #101A2C;
+            background-color: #C7F464;
+            border-color: #C7F464;
+        }
+
+        .info-text {
+            color: rgba(245, 241, 232, 0.55);
+            font-size: 13px;
+        }
+
+        .success-message {
+            color: #75e6a3;
+            font-weight: 600;
+        }
+
+        .error-message {
+            color: #ff8794;
+            font-weight: 600;
+        }
+
+        @media (min-width: 768px) {
+
+            .compiler-container {
+                padding-top: 50px;
+            }
+
+            .compiler-card {
+                padding: 30px;
+            }
+
+            .problem-info {
+                padding: 30px;
+            }
+
+        }
+
+        @media (min-width: 992px) {
+
+            .page-title {
+                font-size: 36px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg">
+
+        <div class="container">
+
+            <a
+                class="navbar-brand"
+                href="{{ url_for('dashboard') }}"
+            >
+
+                <i class="bi bi-robot me-2"></i>
+
+                AI DSA Mentor
+
+            </a>
+
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu"
+            >
+
+                <i class="bi bi-list text-light"></i>
+
+            </button>
+
+
+            <div
+                class="collapse navbar-collapse"
+                id="navbarMenu"
+            >
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('dashboard') }}"
+                        >
+                            Dashboard
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('problems') }}"
+                        >
+                            Problems
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('recommendations') }}"
+                        >
+                            Recommendations
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="container compiler-container">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="mb-4">
+
+            <a
+                href="{{ url_for('problem', problem_id=problem['id']) }}"
+                class="back-btn d-inline-block mb-3"
+            >
+
+                <i class="bi bi-arrow-left me-2"></i>
+
+                Back to Problem
+
+            </a>
+
+
+            <h1 class="page-title">
+
+                <i class="bi bi-terminal me-2"></i>
+
+                Online Compiler
+
+            </h1>
+
+
+            <p class="page-subtitle">
+
+                Write, run and submit your solution.
+
+            </p>
+
+        </div>
+
+
+        <!-- PROBLEM INFORMATION -->
+
+        <div class="problem-info">
+
+            <div class="mb-3">
+
+                <span class="difficulty-badge me-2">
+
+                    {{ problem['difficulty'] }}
+
+                </span>
+
+
+                <span class="topic-badge">
+
+                    {{ problem['topic'] }}
+
+                </span>
+
+            </div>
+
+
+            <h2 class="problem-title">
+
+                #{{ problem['id'] }}
+
+                {{ problem['title'] }}
+
+            </h2>
+
+
+            <div class="problem-description">
+
+                {{ problem['description'] | safe }}
+
+            </div>
+
+
+            <div class="row mt-3">
+
+                <div class="col-md-6">
+
+                    <div class="example-box">
+
+                        <div class="example-title">
+                            Example Input
+                        </div>
+
+                        <div class="example-content">
+                            {{ problem['example_input'] }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <div class="example-box">
+
+                        <div class="example-title">
+                            Example Output
+                        </div>
+
+                        <div class="example-content">
+                            {{ problem['example_output'] }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="example-box">
+
+                <div class="example-title">
+                    Constraints
+                </div>
+
+                <div class="example-content">
+                    {{ problem['constraints'] }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- COMPILER -->
+
+        <div class="compiler-card">
+
+
+            <!-- LANGUAGE -->
+
+            <div class="row mb-4">
+
+                <div class="col-md-5">
+
+                    <label
+                        for="language"
+                        class="form-label"
+                    >
+
+                        <i class="bi bi-code-square me-2"></i>
+
+                        Select Language
+
+                    </label>
+
+
+                    <select
+                        id="language"
+                        class="form-select language-select"
+                    >
+
+                        <option value="python">
+                            Python
+                        </option>
+
+                        <option value="cpp">
+                            C++
+                        </option>
+
+                        <option value="c">
+                            C
+                        </option>
+
+                        <option value="java">
+                            Java
+                        </option>
+
+                        <option value="javascript">
+                            JavaScript
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- CODE EDITOR -->
+
+            <div class="mb-4">
+
+                <label
+                    for="code"
+                    class="form-label"
+                >
+
+                    <i class="bi bi-file-code me-2"></i>
+
+                    Your Code
+
+                </label>
+
+
+                <textarea
+                    id="code"
+                    class="code-editor"
+                    spellcheck="false"
+                ></textarea>
+
+
+                <div class="info-text mt-2">
+
+                    Use <strong>Run Code</strong> to test your program
+                    with the example input when Custom Input is empty.
+
+                    Use <strong>Submit Code</strong> to check your solution
+                    against the stored test cases.
+
+                </div>
+
+            </div>
+
+
+            <!-- CUSTOM INPUT -->
+
+            <div class="mb-4">
+
+                <label
+                    for="userInput"
+                    class="form-label"
+                >
+
+                    <i class="bi bi-keyboard me-2"></i>
+
+                    Custom Input
+
+                </label>
+
+
+                <textarea
+                    id="userInput"
+                    class="input-editor"
+                    placeholder="Leave empty to use the example input, or enter custom input..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="mb-4">
+
+                <button
+                    id="runButton"
+                    type="button"
+                    class="run-btn me-2 mb-2"
+                    onclick="runCode()"
+                >
+
+                    <i class="bi bi-play-fill me-2"></i>
+
+                    Run Code
+
+                </button>
+
+
+                <button
+                    id="submitButton"
+                    type="button"
+                    class="submit-btn me-2 mb-2"
+                    onclick="submitCode()"
+                >
+
+                    <i class="bi bi-send-fill me-2"></i>
+
+                    Submit Code
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="clear-btn mb-2"
+                    onclick="clearEditor()"
+                >
+
+                    <i class="bi bi-trash me-2"></i>
+
+                    Clear
+
+                </button>
+
+            </div>
+
+
+            <!-- OUTPUT -->
+
+            <div class="output-card">
+
+                <div class="output-header">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <span class="output-title">
+
+                            <i class="bi bi-terminal me-2"></i>
+
+                            Output
+
+                        </span>
+
+
+                        <span
+                            id="statusBadge"
+                            class="status-badge status-ready"
+                        >
+
+                            Ready
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="output"
+                    class="output-content"
+                >
+
+                    Run or submit your code to see the result here.
+
+                </div>
+
+            </div>
+
+
+            <!-- SUBMISSION SUMMARY -->
+
+            <div
+                id="submissionSummary"
+                class="submission-summary"
+            >
+
+                <div class="submission-summary-header">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <span class="submission-summary-title">
+
+                            <i class="bi bi-bar-chart-fill me-2"></i>
+
+                            Submission Summary
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-content">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-4">
+
+                            <div class="summary-stat">
+
+                                <div
+                                    id="summaryStatus"
+                                    class="summary-number"
+                                >
+                                    -
+                                </div>
+
+                                <div class="summary-label">
+                                    Status
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="summary-stat">
+
+                                <div
+                                    id="summaryPassed"
+                                    class="summary-number"
+                                >
+                                    0
+                                </div>
+
+                                <div class="summary-label">
+                                    Passed
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="summary-stat">
+
+                                <div
+                                    id="summaryTime"
+                                    class="summary-number"
+                                >
+                                    0 sec
+                                </div>
+
+                                <div class="summary-label">
+                                    Execution Time
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TEST CASE RESULTS -->
+
+            <div
+                id="testCasesCard"
+                class="test-cases-card"
+            >
+
+                <div class="test-cases-header">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <span class="test-cases-title">
+
+                            <i class="bi bi-list-check me-2"></i>
+
+                            Test Case Results
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div id="testCasesContainer"></div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- HIDDEN VALUES -->
+
+    <input
+        type="hidden"
+        id="problemId"
+        value="{{ problem['id'] }}"
+    >
+
+    <!--
+        IMPORTANT:
+        textarea is used instead of hidden input because
+        example input may contain multiple lines.
+    -->
+
+    <textarea
+        id="sampleInput"
+        style="display: none;"
+    >{{ problem['example_input'] }}</textarea>
+
+
+    <!-- Bootstrap -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+
+    <script>
+
+        /* =====================================================
+           PROBLEM ID
+           ===================================================== */
+
+        const problemIdElement =
+            document.getElementById("problemId");
+
+        const problemId =
+            problemIdElement.value;
+
+
+        /* =====================================================
+           SAMPLE INPUT
+           ===================================================== */
+
+        const sampleInputElement =
+            document.getElementById("sampleInput");
+
+        const sampleInput =
+            sampleInputElement.value.trim();
+
+
+        /* =====================================================
+           ELEMENTS
+           ===================================================== */
+
+        const languageSelect =
+            document.getElementById("language");
+
+        const codeEditor =
+            document.getElementById("code");
+
+        const inputEditor =
+            document.getElementById("userInput");
+
+        const outputBox =
+            document.getElementById("output");
+
+        const runButton =
+            document.getElementById("runButton");
+
+        const submitButton =
+            document.getElementById("submitButton");
+
+        const statusBadge =
+            document.getElementById("statusBadge");
+
+        const submissionSummary =
+            document.getElementById("submissionSummary");
+
+        const testCasesCard =
+            document.getElementById("testCasesCard");
+
+        const testCasesContainer =
+            document.getElementById("testCasesContainer");
+
+        const summaryStatus =
+            document.getElementById("summaryStatus");
+
+        const summaryPassed =
+            document.getElementById("summaryPassed");
+
+        const summaryTime =
+            document.getElementById("summaryTime");
+
+
+        /* =====================================================
+           STARTER CODE
+           ===================================================== */
+
+        const starterCode = {
+
+            python:
+`# Write your Python solution here
+
+def main():
+    pass
+
+
+if __name__ == "__main__":
+    main()
+`,
+
+            cpp:
+`#include <iostream>
+using namespace std;
+
+int main() {
+
+    // Write your C++ solution here
+
+    return 0;
+}
+`,
+
+            c:
+`#include <stdio.h>
+
+int main() {
+
+    // Write your C solution here
+
+    return 0;
+}
+`,
+
+            java:
+`import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        // Write your Java solution here
+
+    }
+}
+`,
+
+            javascript:
+`// Write your JavaScript solution here
+
+function main() {
+
+}
+
+main();
+`
+
+        };
+
+
+        /* =====================================================
+           SET STARTER CODE
+           ===================================================== */
+
+        function setStarterCode() {
+
+            const language =
+                languageSelect.value;
+
+            codeEditor.value =
+                starterCode[language];
+
+        }
+
+
+        setStarterCode();
+
+
+        /* =====================================================
+           LANGUAGE CHANGE
+           ===================================================== */
+
+        languageSelect.addEventListener(
+            "change",
+            function() {
+
+                setStarterCode();
+
+                outputBox.textContent =
+                    "Starter code loaded for " +
+                    languageSelect.options[
+                        languageSelect.selectedIndex
+                    ].text +
+                    ".";
+
+                statusBadge.textContent =
+                    "Ready";
+
+                statusBadge.className =
+                    "status-badge status-ready";
+
+                submissionSummary.style.display =
+                    "none";
+
+                testCasesCard.style.display =
+                    "none";
+
+            }
+        );
+
+
+        /* =====================================================
+           RUN CODE
+           ===================================================== */
+
+        async function runCode() {
+
+            const language =
+                languageSelect.value;
+
+            const code =
+                codeEditor.value;
+
+
+            /* =============================================
+               GET CUSTOM INPUT
+               ============================================= */
+
+            let userInput =
+                inputEditor.value;
+
+
+            /* =============================================
+               IF CUSTOM INPUT IS EMPTY,
+               USE EXAMPLE INPUT
+               ============================================= */
+
+            if (!userInput.trim()) {
+
+                userInput =
+                    sampleInput;
+
+            }
+
+
+            /* =============================================
+               CHECK CODE
+               ============================================= */
+
+            if (!code.trim()) {
+
+                outputBox.textContent =
+                    "Please write some code first.";
+
+                statusBadge.textContent =
+                    "Error";
+
+                statusBadge.className =
+                    "status-badge status-error";
+
+                return;
+
+            }
+
+
+            /* =============================================
+               CHECK INPUT
+               ============================================= */
+
+            if (!userInput.trim()) {
+
+                outputBox.textContent =
+                    "This problem does not have example input. Please enter Custom Input.";
+
+                statusBadge.textContent =
+                    "Input Required";
+
+                statusBadge.className =
+                    "status-badge status-error";
+
+                return;
+
+            }
+
+
+            /* =============================================
+               DISABLE BUTTONS
+               ============================================= */
+
+            runButton.disabled = true;
+
+            submitButton.disabled = true;
+
+
+            runButton.innerHTML =
+                '<span class="spinner-border spinner-border-sm me-2"></span>' +
+                'Running...';
+
+
+            statusBadge.textContent =
+                "Running";
+
+            statusBadge.className =
+                "status-badge status-ready";
+
+
+            outputBox.textContent =
+                "Running your code...";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "{{ url_for('execute_code') }}",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                problem_id:
+                                    problemId,
+
+                                language:
+                                    language,
+
+                                code:
+                                    code,
+
+                                input:
+                                    userInput
+
+                            })
+
+                        }
+                    );
+
+
+                /* =============================================
+                   CHECK HTTP RESPONSE
+                   ============================================= */
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Server returned HTTP " +
+                        response.status
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Execute response:",
+                    data
+                );
+
+
+                /* =============================================
+                   SUCCESS
+                   ============================================= */
+
+                if (data.success) {
+
+                    statusBadge.textContent =
+                        data.status ||
+                        "Success";
+
+                    statusBadge.className =
+                        "status-badge status-success";
+
+
+                    let result = "";
+
+
+                    if (
+                        data.output !== undefined &&
+                        data.output !== null
+                    ) {
+
+                        result =
+                            String(data.output);
+
+                    }
+
+
+                    else {
+
+                        result =
+                            "Program executed successfully.";
+
+                    }
+
+
+                    if (data.time !== undefined &&
+                        data.time !== null &&
+                        data.time !== "") {
+
+                        result +=
+                            "\n\nExecution Time: " +
+                            data.time;
+
+                    }
+
+
+                    if (data.memory !== undefined &&
+                        data.memory !== null &&
+                        data.memory !== "") {
+
+                        result +=
+                            "\nMemory: " +
+                            data.memory;
+
+                    }
+
+
+                    outputBox.textContent =
+                        result;
+
+                }
+
+
+                /* =============================================
+                   ERROR
+                   ============================================= */
+
+                else {
+
+                    statusBadge.textContent =
+                        data.status ||
+                        "Error";
+
+                    statusBadge.className =
+                        "status-badge status-error";
+
+
+                    let errorMessage = "";
+
+
+                    if (data.compile_output) {
+
+                        errorMessage +=
+                            "COMPILATION ERROR\n\n";
+
+                        errorMessage +=
+                            data.compile_output;
+
+                    }
+
+
+                    if (data.stderr) {
+
+                        if (errorMessage) {
+
+                            errorMessage +=
+                                "\n\n";
+
+                        }
+
+                        errorMessage +=
+                            "ERROR\n\n";
+
+                        errorMessage +=
+                            data.stderr;
+
+                    }
+
+
+                    if (
+                        data.output !== undefined &&
+                        data.output !== null &&
+                        data.output !== ""
+                    ) {
+
+                        if (errorMessage) {
+
+                            errorMessage +=
+                                "\n\n";
+
+                        }
+
+                        errorMessage +=
+                            "OUTPUT\n\n";
+
+                        errorMessage +=
+                            data.output;
+
+                    }
+
+
+                    if (!errorMessage) {
+
+                        errorMessage =
+                            data.message ||
+                            data.error ||
+                            "Program execution failed.";
+
+                    }
+
+
+                    outputBox.textContent =
+                        errorMessage;
+
+                }
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Run Code Error:",
+                    error
+                );
+
+
+                statusBadge.textContent =
+                    "Error";
+
+                statusBadge.className =
+                    "status-badge status-error";
+
+
+                outputBox.textContent =
+                    "Unable to connect to the compiler.\n\n" +
+                    error.message;
+
+            }
+
+
+            finally {
+
+                runButton.disabled = false;
+
+                submitButton.disabled = false;
+
+
+                runButton.innerHTML =
+                    '<i class="bi bi-play-fill me-2"></i>' +
+                    'Run Code';
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SUBMIT CODE
+           ===================================================== */
+
+        async function submitCode() {
+
+            const language =
+                languageSelect.value;
+
+            const code =
+                codeEditor.value;
+
+
+            if (!code.trim()) {
+
+                outputBox.textContent =
+                    "Please write some code before submitting.";
+
+                statusBadge.textContent =
+                    "Error";
+
+                statusBadge.className =
+                    "status-badge status-error";
+
+                return;
+
+            }
+
+
+            runButton.disabled = true;
+
+            submitButton.disabled = true;
+
+
+            submitButton.innerHTML =
+                '<span class="spinner-border spinner-border-sm me-2"></span>' +
+                'Submitting...';
+
+
+            statusBadge.textContent =
+                "Judging";
+
+            statusBadge.className =
+                "status-badge status-purple";
+
+
+            outputBox.textContent =
+                "Running your code against the test cases...";
+
+
+            submissionSummary.style.display =
+                "none";
+
+            testCasesCard.style.display =
+                "none";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "{{ url_for('submit_code') }}",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                problem_id:
+                                    problemId,
+
+                                language:
+                                    language,
+
+                                code:
+                                    code
+
+                            })
+
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Server returned HTTP " +
+                        response.status
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Submit response:",
+                    data
+                );
+
+
+                /* =============================================
+                   NO TEST CASES
+                   ============================================= */
+
+                if (
+                    data.status ===
+                    "No Test Cases"
+                ) {
+
+                    statusBadge.textContent =
+                        "No Test Cases";
+
+                    statusBadge.className =
+                        "status-badge status-error";
+
+
+                    outputBox.textContent =
+                        data.error ||
+                        "No test cases are available for this problem yet.";
+
+                    return;
+
+                }
+
+
+                /* =============================================
+                   SUCCESSFUL JUDGE REQUEST
+                   ============================================= */
+
+                if (data.success) {
+
+                    const status =
+                        data.status ||
+                        "Unknown";
+
+
+                    statusBadge.textContent =
+                        status;
+
+
+                    if (status === "Accepted") {
+
+                        statusBadge.className =
+                            "status-badge status-success";
+
+                        outputBox.innerHTML =
+                            '<span class="success-message">' +
+                            '<i class="bi bi-check-circle-fill me-2"></i>' +
+                            'All test cases passed! Your solution has been accepted.' +
+                            '</span>';
+
+                    }
+
+                    else {
+
+                        statusBadge.className =
+                            "status-badge status-error";
+
+                        outputBox.innerHTML =
+                            '<span class="error-message">' +
+                            '<i class="bi bi-x-circle-fill me-2"></i>' +
+                            escapeHtml(
+                                data.message ||
+                                "Some test cases failed."
+                            ) +
+                            '</span>';
+
+                    }
+
+
+                    /* =========================================
+                       SUMMARY
+                       ========================================= */
+
+                    submissionSummary.style.display =
+                        "block";
+
+
+                    summaryStatus.textContent =
+                        status;
+
+
+                    summaryPassed.textContent =
+                        (data.passed || 0) +
+                        " / " +
+                        (data.total || 0);
+
+
+                    summaryTime.textContent =
+                        (data.execution_time || "0") +
+                        " sec";
+
+
+                    /* =========================================
+                       TEST CASE RESULTS
+                       ========================================= */
+
+                    renderTestCases(
+                        data.test_cases ||
+                        data.results ||
+                        []
+                    );
+
+                }
+
+                else {
+
+                    statusBadge.textContent =
+                        data.status ||
+                        "Error";
+
+                    statusBadge.className =
+                        "status-badge status-error";
+
+
+                    outputBox.textContent =
+                        data.error ||
+                        data.message ||
+                        "Submission failed.";
+
+                }
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Submit Code Error:",
+                    error
+                );
+
+
+                statusBadge.textContent =
+                    "Error";
+
+                statusBadge.className =
+                    "status-badge status-error";
+
+
+                outputBox.textContent =
+                    "Unable to connect to the submission server.\n\n" +
+                    error.message;
+
+            }
+
+
+            finally {
+
+                runButton.disabled = false;
+
+                submitButton.disabled = false;
+
+
+                submitButton.innerHTML =
+                    '<i class="bi bi-send-fill me-2"></i>' +
+                    'Submit Code';
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RENDER TEST CASES
+           ===================================================== */
+
+        function renderTestCases(results) {
+
+            testCasesContainer.innerHTML =
+                "";
+
+
+            if (!results.length) {
+
+                testCasesCard.style.display =
+                    "none";
+
+                return;
+
+            }
+
+
+            testCasesCard.style.display =
+                "block";
+
+
+            results.forEach(
+                function(testCase) {
+
+                    const item =
+                        document.createElement("div");
+
+                    item.className =
+                        "test-case-item";
+
+
+                    const passed =
+                        testCase.status ===
+                        "Passed";
+
+
+                    const icon =
+                        passed
+                        ? "bi-check-circle-fill"
+                        : "bi-x-circle-fill";
+
+
+                    const resultClass =
+                        passed
+                        ? "test-pass"
+                        : "test-fail";
+
+
+                    const resultText =
+                        passed
+                        ? "Passed"
+                        : "Failed";
+
+
+                    let errorHtml =
+                        "";
+
+
+                    if (testCase.error) {
+
+                        errorHtml = `
+
+                            <div class="mt-3">
+
+                                <div class="test-label">
+                                    Error
+                                </div>
+
+                                <div class="test-output-box">
+                                    ${escapeHtml(
+                                        testCase.error
+                                    )}
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    item.innerHTML = `
+
+                        <div class="test-case-heading">
+
+                            <i
+                                class="bi ${icon} ${resultClass} me-2"
+                            ></i>
+
+                            Test Case
+                            ${escapeHtml(
+                                testCase.test_case
+                            )}
+
+                            <span
+                                class="${resultClass} ms-2"
+                            >
+                                ${resultText}
+                            </span>
+
+                        </div>
+
+
+                        <div class="row g-3">
+
+                            <div class="col-md-4">
+
+                                <div class="test-label">
+                                    Input
+                                </div>
+
+                                <div class="test-output-box">
+                                    ${escapeHtml(
+                                        testCase.input || ""
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="test-label">
+                                    Expected Output
+                                </div>
+
+                                <div class="test-output-box">
+                                    ${escapeHtml(
+                                        testCase.expected || ""
+                                    )}
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <div class="test-label">
+                                    Actual Output
+                                </div>
+
+                                <div class="test-output-box">
+                                    ${escapeHtml(
+                                        testCase.actual || ""
+                                    )}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        ${
+                            testCase.execution_time
+                            ? `
+
+                                <div class="info-text mt-3">
+
+                                    <i class="bi bi-clock me-1"></i>
+
+                                    Execution Time:
+
+                                    ${escapeHtml(
+                                        testCase.execution_time
+                                    )}
+
+                                </div>
+
+                            `
+                            : ""
+                        }
+
+
+                        ${errorHtml}
+
+                    `;
+
+
+                    testCasesContainer.appendChild(
+                        item
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+           ===================================================== */
+
+        function escapeHtml(value) {
+
+            return String(value)
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        /* =====================================================
+           CLEAR
+           ===================================================== */
+
+        function clearEditor() {
+
+            codeEditor.value =
+                "";
+
+            inputEditor.value =
+                "";
+
+
+            outputBox.textContent =
+                "Run or submit your code to see the result here.";
+
+
+            statusBadge.textContent =
+                "Ready";
+
+            statusBadge.className =
+                "status-badge status-ready";
+
+
+            submissionSummary.style.display =
+                "none";
+
+            testCasesCard.style.display =
+                "none";
+
+            testCasesContainer.innerHTML =
+                "";
+
+        }
+
+
+        /* =====================================================
+           TAB SUPPORT
+           ===================================================== */
+
+        codeEditor.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Tab") {
+
+                    event.preventDefault();
+
+
+                    const start =
+                        this.selectionStart;
+
+                    const end =
+                        this.selectionEnd;
+
+
+                    this.value =
+                        this.value.substring(
+                            0,
+                            start
+                        ) +
+                        "    " +
+                        this.value.substring(
+                            end
+                        );
+
+
+                    this.selectionStart =
+                        this.selectionEnd =
+                        start + 4;
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

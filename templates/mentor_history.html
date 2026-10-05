@@ -1,0 +1,514 @@
+{% extends "base.html" %}
+
+{% block title %}Mentor History | AI DSA Mentor{% endblock %}
+
+{% block content %}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+
+        <div>
+            <span class="badge bg-primary-subtle text-primary mb-2">
+                <i class="bi bi-robot me-1"></i>
+                AI Learning History
+            </span>
+
+            <h1 class="fw-bold mb-2">
+                Mentor History
+            </h1>
+
+            <p class="text-secondary mb-0">
+                Review your previous interactions with the AI DSA Mentor.
+            </p>
+        </div>
+
+        <a
+            href="{{ url_for('problems') }}"
+            class="btn btn-primary"
+        >
+            <i class="bi bi-code-square me-2"></i>
+            Practice Problems
+        </a>
+
+    </div>
+
+
+    <!-- Statistics -->
+    <div class="row g-3 mb-4">
+
+        <!-- Total Conversations -->
+        <div class="col-12 col-sm-6 col-lg-4">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+                            <p class="text-secondary small mb-1">
+                                Total Mentor Activities
+                            </p>
+
+                            <h3 class="fw-bold mb-0">
+                                {{ mentor_history|length }}
+                            </h3>
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center"
+                            style="width: 52px; height: 52px;"
+                        >
+                            <i class="bi bi-robot fs-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Hints -->
+        <div class="col-12 col-sm-6 col-lg-4">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p class="text-secondary small mb-1">
+                                AI Assistance
+                            </p>
+
+                            <h3 class="fw-bold mb-0">
+
+                                {% set ai_count = namespace(value=0) %}
+
+                                {% for item in mentor_history %}
+
+                                    {% if item.request_type is defined and item.request_type %}
+                                        {% set ai_count.value = ai_count.value + 1 %}
+                                    {% endif %}
+
+                                {% endfor %}
+
+                                {{ ai_count.value }}
+
+                            </h3>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center"
+                            style="width: 52px; height: 52px;"
+                        >
+                            <i class="bi bi-lightbulb fs-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Problems -->
+        <div class="col-12 col-sm-6 col-lg-4">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div>
+
+                            <p class="text-secondary small mb-1">
+                                Problems Discussed
+                            </p>
+
+                            <h3 class="fw-bold mb-0">
+
+                                {% set problem_ids = [] %}
+
+                                {% for item in mentor_history %}
+
+                                    {% if item.problem_id is defined and item.problem_id %}
+
+                                        {% if item.problem_id not in problem_ids %}
+                                            {% set _ = problem_ids.append(item.problem_id) %}
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                                {{ problem_ids|length }}
+
+                            </h3>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center"
+                            style="width: 52px; height: 52px;"
+                        >
+                            <i class="bi bi-journal-code fs-5"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- History -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-0">
+
+            <div class="p-4 border-bottom">
+
+                <h4 class="fw-bold mb-1">
+                    Previous Mentor Interactions
+                </h4>
+
+                <p class="text-secondary small mb-0">
+                    Your recent AI Mentor requests and responses.
+                </p>
+
+            </div>
+
+
+            {% if mentor_history %}
+
+            <div class="p-3 p-lg-4">
+
+                {% for item in mentor_history %}
+
+                <div class="card border mb-3">
+
+                    <div class="card-body p-4">
+
+                        <!-- Top Section -->
+                        <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-3">
+
+                            <div>
+
+                                <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+
+                                    {% if item.problem_id is defined and item.problem_id %}
+
+                                    <span class="badge bg-primary-subtle text-primary">
+                                        Problem #{{ item.problem_id }}
+                                    </span>
+
+                                    {% endif %}
+
+
+                                    {% if item.request_type is defined and item.request_type %}
+
+                                    <span class="badge bg-secondary-subtle text-secondary">
+                                        {{ item.request_type|replace('_', ' ')|title }}
+                                    </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <h5 class="fw-bold mb-1">
+
+                                    {% if item.title is defined and item.title %}
+
+                                        {{ item.title }}
+
+                                    {% elif item.problem_title is defined and item.problem_title %}
+
+                                        {{ item.problem_title }}
+
+                                    {% elif item.problem_id is defined and item.problem_id %}
+
+                                        Problem #{{ item.problem_id }}
+
+                                    {% else %}
+
+                                        AI Mentor Interaction
+
+                                    {% endif %}
+
+                                </h5>
+
+
+                                {% if item.created_at is defined and item.created_at %}
+
+                                <small class="text-secondary">
+                                    <i class="bi bi-clock me-1"></i>
+                                    {{ item.created_at }}
+                                </small>
+
+                                {% elif item.timestamp is defined and item.timestamp %}
+
+                                <small class="text-secondary">
+                                    <i class="bi bi-clock me-1"></i>
+                                    {{ item.timestamp }}
+                                </small>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            {% if item.problem_id is defined and item.problem_id %}
+
+                            <a
+                                href="{{ url_for('problem', problem_id=item.problem_id) }}"
+                                class="btn btn-sm btn-outline-primary"
+                            >
+                                <i class="bi bi-eye me-1"></i>
+                                View Problem
+                            </a>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- User Question -->
+                        {% if item.user_message is defined and item.user_message %}
+
+                        <div class="mb-3">
+
+                            <div class="small fw-semibold text-primary mb-2">
+                                <i class="bi bi-person me-1"></i>
+                                Your Request
+                            </div>
+
+                            <div class="bg-light rounded p-3">
+
+                                <p class="mb-0">
+                                    {{ item.user_message }}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        {% elif item.message is defined and item.message %}
+
+                        <div class="mb-3">
+
+                            <div class="small fw-semibold text-primary mb-2">
+                                <i class="bi bi-person me-1"></i>
+                                Your Request
+                            </div>
+
+                            <div class="bg-light rounded p-3">
+
+                                <p class="mb-0">
+                                    {{ item.message }}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <!-- AI Response -->
+                        {% if item.ai_response is defined and item.ai_response %}
+
+                        <div>
+
+                            <div class="small fw-semibold text-success mb-2">
+                                <i class="bi bi-robot me-1"></i>
+                                AI Mentor Response
+                            </div>
+
+                            <div class="bg-success-subtle rounded p-3">
+
+                                <div class="mb-0" style="white-space: pre-wrap;">{{ item.ai_response }}</div>
+
+                            </div>
+
+                        </div>
+
+                        {% elif item.response is defined and item.response %}
+
+                        <div>
+
+                            <div class="small fw-semibold text-success mb-2">
+                                <i class="bi bi-robot me-1"></i>
+                                AI Mentor Response
+                            </div>
+
+                            <div class="bg-success-subtle rounded p-3">
+
+                                <div class="mb-0" style="white-space: pre-wrap;">{{ item.response }}</div>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <!-- Code -->
+                        {% if item.code is defined and item.code %}
+
+                        <div class="mt-3">
+
+                            <div class="small fw-semibold text-secondary mb-2">
+                                <i class="bi bi-code-slash me-1"></i>
+                                Submitted Code
+                            </div>
+
+                            <pre class="bg-dark text-light rounded p-3 mb-0"><code>{{ item.code }}</code></pre>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {% else %}
+
+            <!-- Empty State -->
+            <div class="text-center py-5 px-4">
+
+                <div
+                    class="mx-auto mb-4 rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center"
+                    style="width: 80px; height: 80px;"
+                >
+                    <i class="bi bi-robot fs-2"></i>
+                </div>
+
+                <h4 class="fw-bold mb-2">
+                    No Mentor History Yet
+                </h4>
+
+                <p class="text-secondary mb-4 mx-auto" style="max-width: 520px;">
+                    You haven't used the AI Mentor yet.
+                    Open a DSA problem and ask for a hint, approach,
+                    complexity explanation, or code analysis.
+                </p>
+
+                <a
+                    href="{{ url_for('problems') }}"
+                    class="btn btn-primary"
+                >
+                    <i class="bi bi-stars me-2"></i>
+                    Start Learning with AI Mentor
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- Information -->
+    <div class="row g-3 mt-4">
+
+        <div class="col-12 col-md-4">
+
+            <div class="card border-0 bg-primary-subtle h-100">
+
+                <div class="card-body p-4">
+
+                    <i class="bi bi-lightbulb text-primary fs-3 mb-3"></i>
+
+                    <h5 class="fw-bold">
+                        Ask for Hints
+                    </h5>
+
+                    <p class="text-secondary small mb-0">
+                        Get guidance without immediately seeing the complete
+                        solution.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-12 col-md-4">
+
+            <div class="card border-0 bg-success-subtle h-100">
+
+                <div class="card-body p-4">
+
+                    <i class="bi bi-diagram-3 text-success fs-3 mb-3"></i>
+
+                    <h5 class="fw-bold">
+                        Understand Approaches
+                    </h5>
+
+                    <p class="text-secondary small mb-0">
+                        Learn how to break a DSA problem into smaller logical
+                        steps.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-12 col-md-4">
+
+            <div class="card border-0 bg-warning-subtle h-100">
+
+                <div class="card-body p-4">
+
+                    <i class="bi bi-speedometer2 text-warning fs-3 mb-3"></i>
+
+                    <h5 class="fw-bold">
+                        Learn Complexity
+                    </h5>
+
+                    <p class="text-secondary small mb-0">
+                        Understand the time and space complexity of your
+                        solutions.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

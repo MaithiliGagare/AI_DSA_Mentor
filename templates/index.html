@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI DSA Mentor</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Custom CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar navbar-expand-lg sticky-top">
+
+    <div class="container py-2">
+
+        <a
+            class="navbar-brand"
+            href="/"
+        >
+            <i class="bi bi-stars brand-ai"></i>
+            AI DSA Mentor
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+        >
+            <i class="bi bi-list text-light"></i>
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavbar"
+        >
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link px-3"
+                        href="/"
+                    >
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link px-3"
+                        href="/problems"
+                    >
+                        Problems
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero-section">
+
+    <div class="container py-5">
+
+        <div class="row align-items-center min-vh-75">
+
+            <div class="col-lg-7 py-5">
+
+                <span class="hero-badge mb-4">
+                    <i class="bi bi-stars me-2"></i>
+                    AI-Powered DSA Learning
+                </span>
+
+
+                <h1 class="hero-title mt-4">
+
+                    Master DSA with
+                    <span class="gradient-text">
+                        Your AI Mentor
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-description mt-4">
+
+                    Learn Data Structures and Algorithms through
+                    personalized AI guidance, hints, explanations,
+                    complexity analysis, and interactive problem solving.
+
+                </p>
+
+
+                <div class="mt-4">
+
+                    <a
+                        href="/problems"
+                        class="btn btn-ai me-2 mb-2"
+                    >
+                        <i class="bi bi-code-slash me-2"></i>
+                        Start Solving
+                    </a>
+
+
+                    <a
+                        href="/problems"
+                        class="btn btn-outline-ai mb-2"
+                    >
+                        Explore Problems
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-5 py-5">
+
+                <div class="ai-mentor-card p-4">
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <div class="ai-icon me-3">
+                            <i class="bi bi-robot fs-4"></i>
+                        </div>
+
+                        <div>
+
+                            <h3 class="ai-title mb-1">
+                                AI DSA Mentor
+                            </h3>
+
+                            <small class="text-secondary">
+                                Your personal coding guide
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="dashboard-card mb-3">
+
+                        <small class="text-secondary">
+                            AI Mentor
+                        </small>
+
+                        <p class="mt-2 mb-0">
+                            👋 Let's solve this problem
+                            step by step instead of just
+                            giving you the answer.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <div class="row g-2">
+
+                            <div class="col-6">
+
+                                <button
+                                    class="btn btn-outline-ai w-100"
+                                >
+                                    <i class="bi bi-lightbulb me-1"></i>
+                                    Hint
+                                </button>
+
+                            </div>
+
+                            <div class="col-6">
+
+                                <button
+                                    class="btn btn-outline-ai w-100"
+                                >
+                                    <i class="bi bi-diagram-3 me-1"></i>
+                                    Approach
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-6 col-lg-3">
+
+                <div class="dashboard-card">
+
+                    <div class="stat-icon mb-3">
+                        <i class="bi bi-code-square"></i>
+                    </div>
+
+                    <div class="stat-number">
+                        5
+                    </div>
+
+                    <div class="stat-label">
+                        Practice Problems
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="dashboard-card">
+
+                    <div class="stat-icon mb-3">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+
+                    <div class="stat-number">
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        Problems Solved
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="dashboard-card">
+
+                    <div class="stat-icon mb-3">
+                        <i class="bi bi-fire"></i>
+                    </div>
+
+                    <div class="stat-number">
+                        0
+                    </div>
+
+                    <div class="stat-label">
+                        Day Streak
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="dashboard-card">
+
+                    <div class="stat-icon mb-3">
+                        <i class="bi bi-chat-dots"></i>
+                    </div>
+
+                    <div class="stat-number">
+                        AI
+                    </div>
+
+                    <div class="stat-label">
+                        Personal Mentor
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LEARNING PROGRESS
+===================================================== -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="mb-5">
+
+            <span class="hero-badge">
+                Your Learning
+            </span>
+
+            <h2 class="section-title mt-3">
+                DSA Progress
+            </h2>
+
+            <p class="section-subtitle">
+                Build your problem-solving skills one topic at a time.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Progress -->
+
+            <div class="col-lg-7">
+
+                <div class="dashboard-card">
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span>
+                            Arrays
+                        </span>
+
+                        <span class="text-secondary">
+                            Beginner
+                        </span>
+
+                    </div>
+
+                    <div class="progress mb-4">
+
+                        <div
+                            class="progress-bar progress-bar-purple"
+                            style="width: 25%"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span>
+                            Strings
+                        </span>
+
+                        <span class="text-secondary">
+                            Beginner
+                        </span>
+
+                    </div>
+
+                    <div class="progress mb-4">
+
+                        <div
+                            class="progress-bar progress-bar-blue"
+                            style="width: 15%"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span>
+                            Linked List
+                        </span>
+
+                        <span class="text-secondary">
+                            Beginner
+                        </span>
+
+                    </div>
+
+                    <div class="progress mb-4">
+
+                        <div
+                            class="progress-bar progress-bar-pink"
+                            style="width: 10%"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span>
+                            Searching
+                        </span>
+
+                        <span class="text-secondary">
+                            Beginner
+                        </span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar progress-bar-blue"
+                            style="width: 20%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- AI Recommendation -->
+
+            <div class="col-lg-5">
+
+                <div class="ai-mentor-card h-100 p-4">
+
+                    <div class="ai-icon mb-4">
+
+                        <i class="bi bi-stars"></i>
+
+                    </div>
+
+
+                    <h3 class="ai-title">
+                        AI Learning Suggestion
+                    </h3>
+
+
+                    <p class="ai-description mt-3">
+
+                        Start with Arrays and Two Pointer
+                        problems. Once you are comfortable,
+                        move toward Binary Search and
+                        Linked Lists.
+
+                    </p>
+
+
+                    <a
+                        href="/problems"
+                        class="btn btn-ai mt-3"
+                    >
+                        Continue Learning
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RECENT PROBLEMS
+===================================================== -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-end mb-4">
+
+            <div>
+
+                <span class="hero-badge">
+                    Practice
+                </span>
+
+                <h2 class="section-title mt-3">
+                    Start Solving
+                </h2>
+
+            </div>
+
+
+            <a
+                href="/problems"
+                class="btn btn-outline-ai"
+            >
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="problem-card p-4 h-100">
+
+                    <span class="difficulty-easy">
+                        Easy
+                    </span>
+
+                    <h4 class="problem-title mt-3">
+                        Two Sum
+                    </h4>
+
+                    <p class="problem-topic">
+                        Array
+                    </p>
+
+                    <a
+                        href="/problem/1"
+                        class="btn btn-outline-ai mt-3"
+                    >
+                        Solve Problem
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="problem-card p-4 h-100">
+
+                    <span class="difficulty-medium">
+                        Medium
+                    </span>
+
+                    <h4 class="problem-title mt-3">
+                        Maximum Subarray
+                    </h4>
+
+                    <p class="problem-topic">
+                        Array
+                    </p>
+
+                    <a
+                        href="/problem/2"
+                        class="btn btn-outline-ai mt-3"
+                    >
+                        Solve Problem
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="problem-card p-4 h-100">
+
+                    <span class="difficulty-easy">
+                        Easy
+                    </span>
+
+                    <h4 class="problem-title mt-3">
+                        Reverse Linked List
+                    </h4>
+
+                    <p class="problem-topic">
+                        Linked List
+                    </p>
+
+                    <a
+                        href="/problem/3"
+                        class="btn btn-outline-ai mt-3"
+                    >
+                        Solve Problem
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer py-4 mt-5">
+
+    <div class="container text-center">
+
+        <p class="mb-0">
+            <i class="bi bi-stars brand-ai"></i>
+            AI DSA Mentor
+            <span class="mx-2">•</span>
+            Learn. Practice. Improve.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
+
+</body>
+
+</html>

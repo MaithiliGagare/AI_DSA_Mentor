@@ -1,0 +1,494 @@
+{% extends "base.html" %}
+
+{% block title %}Problems | AI DSA Mentor{% endblock %}
+
+{% block content %}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- ==========================================
+         PAGE HEADER
+    ========================================== -->
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+
+        <div>
+
+            <h1 class="fw-bold mb-2">
+                <i class="bi bi-code-square me-2 text-primary"></i>
+                DSA Problems
+            </h1>
+
+            <p class="text-secondary mb-0">
+                Practice problems and improve your problem-solving skills.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="btn btn-outline-secondary"
+        >
+            <i class="bi bi-speedometer2 me-2"></i>
+            Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- ==========================================
+         FILTERS
+    ========================================== -->
+
+    <div class="card border-0 shadow-sm mb-4">
+
+        <div class="card-body p-4">
+
+            <form
+                method="GET"
+                action="{{ url_for('problems') }}"
+            >
+
+                <div class="row g-3">
+
+                    <!-- Search -->
+
+                    <div class="col-12 col-lg-5">
+
+                        <label
+                            for="search"
+                            class="form-label fw-semibold"
+                        >
+                            Search Problems
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                <i class="bi bi-search"></i>
+                            </span>
+
+                            <input
+                                type="text"
+                                id="search"
+                                name="search"
+                                class="form-control"
+                                placeholder="Search by problem name..."
+                                value="{{ request.args.get('search', '') }}"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Topic -->
+
+                    <div class="col-12 col-md-6 col-lg-3">
+
+                        <label
+                            for="topic"
+                            class="form-label fw-semibold"
+                        >
+                            Topic
+                        </label>
+
+                        <select
+                            id="topic"
+                            name="topic"
+                            class="form-select"
+                        >
+
+                            <option value="">
+                                All Topics
+                            </option>
+
+                            {% for topic in topics %}
+
+                            <option
+                                value="{{ topic }}"
+                                {% if request.args.get('topic') == topic %}selected{% endif %}
+                            >
+                                {{ topic }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Difficulty -->
+
+                    <div class="col-12 col-md-6 col-lg-2">
+
+                        <label
+                            for="difficulty"
+                            class="form-label fw-semibold"
+                        >
+                            Difficulty
+                        </label>
+
+                        <select
+                            id="difficulty"
+                            name="difficulty"
+                            class="form-select"
+                        >
+
+                            <option value="">
+                                All
+                            </option>
+
+                            {% for difficulty in difficulties %}
+
+                            <option
+                                value="{{ difficulty }}"
+                                {% if request.args.get('difficulty') == difficulty %}selected{% endif %}
+                            >
+                                {{ difficulty }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Filter Button -->
+
+                    <div class="col-12 col-lg-2 d-flex align-items-end">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100"
+                        >
+                            <i class="bi bi-funnel me-2"></i>
+                            Filter
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <!-- Clear Filters -->
+
+            {% if request.args.get('search') or request.args.get('topic') or request.args.get('difficulty') %}
+
+            <div class="mt-3">
+
+                <a
+                    href="{{ url_for('problems') }}"
+                    class="btn btn-sm btn-outline-secondary"
+                >
+                    <i class="bi bi-x-circle me-1"></i>
+                    Clear Filters
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         RESULTS HEADER
+    ========================================== -->
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+
+        <div>
+
+            <h5 class="fw-bold mb-1">
+                Available Problems
+            </h5>
+
+            <p class="text-secondary small mb-0">
+
+                {{ problems|length }}
+
+                problem{% if problems|length != 1 %}s{% endif %}
+
+                found
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         PROBLEMS LIST
+    ========================================== -->
+
+    {% if problems %}
+
+    <div class="row g-4">
+
+        {% for problem in problems %}
+
+        <div class="col-12 col-md-6 col-xl-4">
+
+            <div class="card border-0 shadow-sm h-100">
+
+                <div class="card-body p-4 d-flex flex-column">
+
+
+                    <!-- ==================================
+                         BADGES
+                    ================================== -->
+
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+
+                        <!-- Problem Number -->
+
+                        <span class="badge bg-primary-subtle text-primary">
+
+                            #{{ problem['id'] }}
+
+                        </span>
+
+
+                        <!-- Difficulty -->
+
+                        {% if problem['difficulty']|lower == "easy" %}
+
+                        <span class="badge bg-success-subtle text-success">
+
+                            Easy
+
+                        </span>
+
+                        {% elif problem['difficulty']|lower == "medium" %}
+
+                        <span class="badge bg-warning-subtle text-warning">
+
+                            Medium
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-danger-subtle text-danger">
+
+                            Hard
+
+                        </span>
+
+                        {% endif %}
+
+
+                        <!-- Topic -->
+
+                        <span class="badge bg-secondary-subtle text-secondary">
+
+                            {{ problem['topic'] }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         TITLE
+                    ================================== -->
+
+                    <h4 class="fw-bold mb-3">
+
+                        {{ problem['title'] }}
+
+                    </h4>
+
+
+                    <!-- ==================================
+                         DESCRIPTION
+                    ================================== -->
+
+                    {% if problem['description'] %}
+
+                    <p
+                        class="text-secondary mb-4"
+                        style="line-height: 1.7;"
+                    >
+
+                        {{ problem['description']|truncate(180) }}
+
+                    </p>
+
+                    {% else %}
+
+                    <p
+                        class="text-secondary mb-4"
+                    >
+
+                        No description available for this problem.
+
+                    </p>
+
+                    {% endif %}
+
+
+                    <!-- ==================================
+                         STATUS
+                    ================================== -->
+
+                    <div class="mb-4">
+
+                        {% if problem['solved'] %}
+
+                        <span class="text-success fw-semibold">
+
+                            <i class="bi bi-check-circle-fill me-1"></i>
+
+                            Solved
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="text-secondary">
+
+                            <i class="bi bi-circle me-1"></i>
+
+                            Not Solved
+
+                        </span>
+
+                        {% endif %}
+
+
+                        {% if problem['attempts'] is defined %}
+
+                        <span class="text-secondary ms-3">
+
+                            <i class="bi bi-arrow-repeat me-1"></i>
+
+                            {{ problem['attempts'] }}
+
+                            attempt{% if problem['attempts'] != 1 %}s{% endif %}
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- ==================================
+                         ACTION BUTTONS
+                    ================================== -->
+
+                    <div class="mt-auto d-grid gap-2">
+
+
+                        <!-- SOLVE PROBLEM -->
+
+                        <!-- IMPORTANT:
+                             Your Flask endpoint is "problem",
+                             NOT "problem_page".
+                        -->
+
+                        <a
+                            href="{{ url_for('problem', problem_id=problem['id']) }}"
+                            class="btn btn-primary"
+                        >
+
+                            <i class="bi bi-arrow-right-circle me-2"></i>
+
+                            Solve Problem
+
+                        </a>
+
+
+                        <!-- OPEN COMPILER -->
+
+                        <!-- Your Flask compiler endpoint is "compiler". -->
+
+                        <a
+                            href="{{ url_for('compiler', problem_id=problem['id']) }}"
+                            class="btn btn-outline-primary"
+                        >
+
+                            <i class="bi bi-terminal me-2"></i>
+
+                            Open Compiler
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- ==========================================
+         NO PROBLEMS
+    ========================================== -->
+
+    {% else %}
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body text-center py-5">
+
+            <div class="mb-3">
+
+                <i
+                    class="bi bi-search"
+                    style="font-size: 3rem;"
+                ></i>
+
+            </div>
+
+
+            <h4 class="fw-bold mb-2">
+
+                No Problems Found
+
+            </h4>
+
+
+            <p class="text-secondary mb-4">
+
+                Try changing your search or filter options.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('problems') }}"
+                class="btn btn-primary"
+            >
+
+                <i class="bi bi-arrow-counterclockwise me-2"></i>
+
+                Show All Problems
+
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
